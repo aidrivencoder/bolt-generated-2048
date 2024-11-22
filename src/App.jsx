@@ -13,15 +13,25 @@ function App() {
     <div className="game-container">
       <div className="score">Score: {score}</div>
       <div className="grid">
-        {grid.map((row, i) =>
-          row.map((cell, j) => (
-            <div
-              key={`${i}-${j}`}
-              className={`cell ${cell ? `tile-${cell}` : ''}`}
-            >
-              {cell || ''}
-            </div>
+        {[...Array(4)].map((_, i) =>
+          [...Array(4)].map((_, j) => (
+            <div key={`${i}-${j}`} className="cell" />
           ))
+        )}
+        {grid.flatMap((row, i) =>
+          row.map((value, j) => 
+            value ? (
+              <div
+                key={`${i}-${j}-${value}`}
+                className={`tile tile-${value}`}
+                style={{
+                  transform: `translate(${j * 90 + 10}px, ${i * 90 + 10}px)`
+                }}
+              >
+                {value}
+              </div>
+            ) : null
+          )
         )}
       </div>
     </div>
